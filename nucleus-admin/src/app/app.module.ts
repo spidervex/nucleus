@@ -15,6 +15,7 @@ import {MenubarModule} from 'primeng/menubar';
 import { UsersComponent } from './users/users.component';
 import { CompaniesComponent } from './companies/companies.component';
 import {ButtonModule} from 'primeng/button';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {ButtonModule} from 'primeng/button';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
 

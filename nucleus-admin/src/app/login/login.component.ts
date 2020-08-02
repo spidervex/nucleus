@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {SessionService} from '../../services/session.service';
+import {Component, OnInit} from '@angular/core';
+import {SessionService} from '../services/session.service';
 import {Router} from '@angular/router';
 
 import * as debug from 'debug';
-const debugLog = debug('login');
+import {UserService} from "../services/user.service";
+
+const debugLog = debug('app:login');
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private Session: SessionService,
+    private UserApi: UserService,
     private router: Router
   ) {
     this.users = [
@@ -27,16 +30,28 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.UserApi.get().subscribe((result) => {
+      debugLog(result);
+      const body = result.body;
+      this.users = result.body.map((user) => {
+        const reutnrObj = {
+          name: user.displayName,
+          email: user.email
+        }
+        return reutnrObj;
+      });
+    })
   }
 
   public go(): void {
     debugLog(this.selectedUser);
 
-    // this.Session.login(this.selectedUser.email).subscribe((response) => {
-    //   debugLog(response);
-    //   const token = response.body.token;
-      // this.Session.setToken(token);
-      this.router.navigate(['session']);
-    // });
+    this.Session.login(this.selectedUser.email).subscribe((response) => {
+      debugLog(response);
+      const token = response.body.token;
+    this.Session.setToken(token);
+    this.router.navigate(['session']);
+    });
   }
 }

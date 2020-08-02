@@ -1,13 +1,17 @@
 var express = require('express');
 var logger = require('morgan');
+var cors = require('cors')
 
 const debugLog = require('debug')('express');
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+app.use(cors({
+    origin: '*',
+    optionsSuccessStatus: 200
+}))
 
 app.use(logger('dev'));
 app.use(express.json());
