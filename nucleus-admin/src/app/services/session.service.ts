@@ -28,4 +28,9 @@ export class SessionService {
   public setToken(token): void {
     localStorage.setItem('auth', token);
   }
+
+  public whoami(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.baseUrl}/whoami`,
+      this.httpOptions);
+  }
 }

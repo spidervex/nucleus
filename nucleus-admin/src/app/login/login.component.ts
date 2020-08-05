@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.users = [
-      {name: 'Super Admin', email: 'supermike@spidervex.com'},
-      {name: 'Admin', email: 'admin@spidervex.com'},
-      {name: 'User', email: 'user@spidervex.com'}
+      // {name: 'Super Admin', email: 'supermike@spidervex.com'},
+      // {name: 'Admin', email: 'admin@spidervex.com'},
+      // {name: 'User', email: 'user@spidervex.com'}
     ];
   }
 

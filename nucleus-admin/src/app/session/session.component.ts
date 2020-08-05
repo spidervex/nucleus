@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SessionService} from "../services/session.service";
 
 @Component({
   selector: 'app-session',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SessionComponent implements OnInit {
 
-  constructor() { }
+  public whoami: any;
+
+  constructor(
+    private Session: SessionService
+  ) { }
 
   ngOnInit(): void {
+    this.Session.whoami().subscribe((response) => {
+      this.whoami = response.body;
+    })
   }
-
 }

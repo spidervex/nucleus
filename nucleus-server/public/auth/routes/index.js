@@ -27,4 +27,16 @@ router.post('/login', async (req, res, next) => {
   res.json({token: token});
 });
 
+router.get('/whoami', async (req, res, next) => {
+  let token = req.headers['authorization'].substring(7);
+  var decoded = jwt.verify(token,
+      'someSecretKey',
+      {algorithm: 'HS256'});
+
+  const users = await req.db.user.find({_id: decoded.userId}).lean().exec();
+  debugLog('users found', users[0])
+
+  res.json({user: users[0]});
+});
+
 module.exports = router;

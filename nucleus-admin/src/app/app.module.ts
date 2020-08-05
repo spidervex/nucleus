@@ -15,7 +15,8 @@ import {MenubarModule} from 'primeng/menubar';
 import { UsersComponent } from './users/users.component';
 import { CompaniesComponent } from './companies/companies.component';
 import {ButtonModule} from 'primeng/button';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {TokenInterceptor} from "./token.interceptor";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,11 @@ import {HttpClientModule} from "@angular/common/http";
     AccordionModule,
     DropdownModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
